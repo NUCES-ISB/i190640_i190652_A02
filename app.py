@@ -10,10 +10,10 @@ from flask import Flask, render_template, request, jsonify
 app = Flask(__name__)
 
 # Authentication credentials for the Twitter API
-consumer_key = '7a4YdE6dR374ZZHqMa4thDCpt'
-consumer_secret = '6u3Fnprqx8mdBJLWZpHLZPsr2prLOjAy89EVfBVBqwmFQdR4Tg'
-access_token = '1056110951404056577-QVtsdZGx4GYVddu0d63dZR5XbNhFFO'
-access_token_secret = 'axsXdscBy8jLJtqcJS8tlpNOwuzyTTuuizy8cw2iAVWb5'
+consumer_key = 'CK'
+consumer_secret = 'CS'
+access_token = 'AT'
+access_token_secret = 'ATS'
 auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_token, access_token_secret)
 api = tweepy.API(auth)
