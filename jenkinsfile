@@ -1,0 +1,46 @@
+pipeline {
+    agent any
+
+    stages {
+       stage('delete Existing clone') {
+            steps {
+                catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+                    bat '''rd /q /s .'''
+                }
+            }
+        }
+         
+         
+        stage('Clone repository') {
+            steps {
+                bat '''git clone https://github.com/NUCES-ISB/i190640_i190652_A02.git .'''
+            }
+        }
+        
+        
+        stage('Build image') {
+            steps {
+                script {
+                    dockerImage = docker.build("talharizwan/tweet_app:latest")
+                }
+            }
+        }
+        
+        stage('Push image') {
+            steps {
+                script {
+                    withDockerRegistry([credentialsId: "talharizwan", url: ""]) {
+                        dockerImage.push()
+                    }
+                }
+            }
+        }
+        stage('Run App') {
+            steps {
+                bat '''docker pull talharizwan/tweet_app:latest
+                docker run -d --name c_app -p 5000:5000 talharizwan/tweet_app:latest'''
+            }
+        }
+        
+    }
+}
